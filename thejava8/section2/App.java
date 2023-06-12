@@ -29,12 +29,20 @@ public class App {
 
 //        Stream<String> stringStream = names.stream().map(String::toUpperCase);
 //        names.forEach(System.out::println);
-        names.stream().map(s ->{
-            System.out.println(s);
+//        List<String> collect = names.stream().map(s -> {
+//            System.out.println(s);
+//            return s.toUpperCase();
+//        }).collect(Collectors.toList());
+//        System.out.println("---------------------------------");
+//        names.forEach(System.out::println);
+
+        List<String> collect = names.parallelStream().map((s) -> {
+            System.out.println(s + " " + Thread.currentThread().getName());
             return s.toUpperCase();
-        });
-        System.out.println("---------------------------------");
-        names.forEach(System.out::println);
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+
+
     }
 
 }
