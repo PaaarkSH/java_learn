@@ -1,9 +1,9 @@
-package thejava8.section2;
+package thejava8.section3;
 
 import java.util.*;
 import java.util.stream.*;
 
-public class App {
+public class StreamTest1 {
 
     public static void main(String[] args) {
         List<String> names = new ArrayList<>();
