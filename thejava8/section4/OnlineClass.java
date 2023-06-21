@@ -1,5 +1,7 @@
 package thejava8.section4;
 
+import java.util.Optional;
+
 public class OnlineClass {
     private Integer id;
     private String title;
@@ -37,13 +39,20 @@ public class OnlineClass {
         this.closed = closed;
     }
 
-    public Progress getProgress() {
-        if (this.progress == null)
-            throw new IllegalStateException();
-        return progress;
+    public Optional<Progress> getProgress() {
+        return Optional.ofNullable(progress);
+    }
+//    public void setProgress(Progress progress) {
+//        this.progress = progress;
+//    }
+
+
+    // 사용할 순 있지만 권장은 아님
+    public void setProgress(Optional<Progress> progress) {
+        progress.ifPresent(o ->{
+            progress.ifPresent(p -> this.progress = p);
+        });
+
     }
 
-    public void setProgress(Progress progress) {
-        this.progress = progress;
-    }
 }
