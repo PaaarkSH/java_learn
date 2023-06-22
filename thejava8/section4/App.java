@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,11 +20,9 @@ public class App {
         springClasses.add(new OnlineClass(4, "spring core", false));
         springClasses.add(new OnlineClass(5, "rest api development", false));
 
-        OnlineClass spring_boot = new OnlineClass(1, "spring boot", true);
-        // spring_boot.setProgress(null);
-
-        Progress progress = spring_boot.getProgress();
-        if (progress != null)
-            System.out.println(progress.getStudyDuration());
+         OnlineClass spring_boot = new OnlineClass(1, "spring boot", true);
+        // Optional.of(10);
+        Optional<Progress> progress = spring_boot.getProgress();
+        progress.ifPresent(p -> System.out.println(p.getStudyDuration()));
     }
 }

@@ -40,19 +40,14 @@ public class OnlineClass {
     }
 
     public Optional<Progress> getProgress() {
-        return Optional.ofNullable(progress);
+        // return Optional.ofNullable(progress);
+        // return null;
+        return Optional.empty();
     }
-//    public void setProgress(Progress progress) {
-//        this.progress = progress;
-//    }
-
-
-    // 사용할 순 있지만 권장은 아님
-    public void setProgress(Optional<Progress> progress) {
-        progress.ifPresent(o ->{
-            progress.ifPresent(p -> this.progress = p);
-        });
-
+    public void setProgress(Progress progress) {
+        this.progress = progress;
     }
+
+
 
 }
