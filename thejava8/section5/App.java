@@ -7,6 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class App {
     public static void main(String[] args) throws InterruptedException{
@@ -47,10 +48,15 @@ public class App {
 
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
 //        LocalDateTime dateTime = gregorianCalendar.toZonedDateTime();
-        LocalDateTime dateTime = gregorianCalendar.toInstant().atZone();
+        ZonedDateTime zonedDateTime = gregorianCalendar.toInstant().atZone(ZoneId.systemDefault());
+        GregorianCalendar.from(zonedDateTime);
+
+        ZoneId zoneId = TimeZone.getTimeZone("PST").toZoneId();
+        TimeZone timeZone = TimeZone.getTimeZone(zoneId);
 
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime plus = now.plus(10, ChronoUnit.DAYS);
+
         DateTimeFormatter MMddyyyy = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         System.out.println(now.format(MMddyyyy));
 
