@@ -1,47 +1,28 @@
 package thejava8.section6;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class App {
-    public static void main(String[] args) throws InterruptedException {
-//        System.out.println(Thread.currentThread().getName());  // 메인 쓰레드
-//        MyThread myThread = new MyThread();
-//        myThread.start();
+    public static void main(String[] args){
+//        ExecutorService executorService = Executors.newFixedThreadPool(2);
+//        executorService.submit(getRunnable("hello1"));
+//        executorService.submit(getRunnable("hello2"));
+//        executorService.submit(getRunnable("hello3"));
+//        executorService.submit(getRunnable("hello4"));
+//        executorService.submit(getRunnable("hello5"));
+//        executorService.shutdown();  // grace
 
-//        System.out.println("Hello");
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("Thread : " + Thread.currentThread().getName());
-//            }
-//        });
-//        thread.start();
-
-//        Thread thread = new Thread(() ->  System.out.println("Thread : " + Thread.currentThread().getName()));
-//        thread.start();
-
-        Thread thread = new Thread(() ->  {
-            System.out.println("Thread : " + Thread.currentThread().getName());
-            try {
-                Thread.sleep(3000L);
-            } catch (InterruptedException e){
-                throw new IllegalStateException(e);
-            }
-        });
-        thread.start();
-
-        System.out.println("Hello : " + Thread.currentThread().getName());
-        try {
-            thread.join();  // 기다린다
-        } catch (InterruptedException e){
-            e.printStackTrace();
-        }
-
-
-        System.out.println(thread + "is finished");
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(getRunnable("hello"), 1, 2, TimeUnit.SECONDS);
+        // shutdown 이 interrupt 을 발생해서 기다리지 않고 종료함
     }
-//    static class MyThread extends Thread {
-//        @Override
-//        public void run(){
-//            System.out.println("hello : " + Thread.currentThread().getName());
-//        }
-//    }
+
+    private static Runnable getRunnable(String msg) {
+        return () -> {
+            System.out.println(msg + Thread.currentThread().getName());
+        };
+    }
 }
