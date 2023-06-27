@@ -15,12 +15,28 @@ public class App2 {
 //        });
 //        future.get();
 
-        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+//        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("hello " + Thread.currentThread().getName());
+//            return "hello";
+//        }).thenApply((s) ->{
+//            System.out.println(Thread.currentThread().getName());
+//            return s.toUpperCase();
+//        });
+
+//        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("hello " + Thread.currentThread().getName());
+//            return "hello";
+//        }).thenAccept((s) ->{
+//            System.out.println(Thread.currentThread().getName());
+//            System.out.println(s.toUpperCase());
+//        });
+
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
             System.out.println("hello " + Thread.currentThread().getName());
             return "hello";
-        }).thenApply((s) ->{
+        }, executorService).thenRunAsync(() ->{
             System.out.println(Thread.currentThread().getName());
-            return s.toUpperCase();
         });
 
         System.out.println(future.get());
